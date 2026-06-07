@@ -1,0 +1,568 @@
+/* 3GPP MPR Calculator Styling - Sleek Dark Mode Theme */
+
+:root {
+    --bg-primary: #090d16;
+    --bg-secondary: #121926;
+    --bg-card: rgba(22, 30, 49, 0.75);
+    --border-color: #1e293b;
+    --accent-blue: #38bdf8;
+    --accent-blue-hover: #0ea5e9;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --color-green: #10b981;
+    --color-red: #f43f5e;
+    --color-orange: #f59e0b;
+    --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    padding: 40px 20px;
+    background-image: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 10% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.app-header h1 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+    background: linear-gradient(to right, #ffffff, var(--accent-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 12px rgba(56, 189, 248, 0.1);
+}
+
+.app-header .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* Layout */
+.main-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Card */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group.divider {
+    border-bottom: 1px solid var(--border-color);
+    margin: 24px 0;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+select, input[type="number"] {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: rgba(9, 13, 22, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+select:focus, input[type="number"]:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+}
+
+/* Custom Checkboxes */
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    text-transform: none;
+    letter-spacing: normal;
+    user-select: none;
+    padding-left: 32px;
+}
+
+.checkbox-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.custom-checkbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: rgba(9, 13, 22, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.checkbox-label:hover input ~ .custom-checkbox {
+    border-color: var(--accent-blue);
+}
+
+.checkbox-label input:checked ~ .custom-checkbox {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.custom-checkbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 3px;
+    width: 6px;
+    height: 10px;
+    border: solid var(--bg-primary);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-label input:checked ~ .custom-checkbox:after {
+    display: block;
+}
+
+.checkbox-label input:disabled ~ .custom-checkbox {
+    background-color: rgba(30, 41, 59, 0.3);
+    border-color: var(--border-color);
+    cursor: not-allowed;
+}
+
+.checkbox-label input:disabled ~ .checkbox-text {
+    color: var(--text-secondary);
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.note-status-badge {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: auto;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.status-active {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: var(--color-green);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-supported {
+    background-color: rgba(56, 189, 248, 0.15);
+    color: var(--accent-blue);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.status-na {
+    background-color: rgba(30, 41, 59, 0.8);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    opacity: 0.6;
+}
+
+.help-text {
+    display: block;
+    margin-top: 6px;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+/* Right Panel Results */
+.result-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 600px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.result-card {
+    padding: 24px;
+}
+
+.result-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+}
+
+.limits-display {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.limit-val-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.limit-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.limit-val {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.limit-val.compact {
+    font-size: 1.5rem;
+}
+
+.usl .limit-val {
+    color: var(--color-red);
+}
+
+.lsl .limit-val {
+    color: var(--color-green);
+}
+
+/* Visualizer Card */
+.visualizer-card {
+    padding: 28px;
+}
+
+.status-indicator-bar {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background-color: rgba(30, 41, 59, 0.4);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    transition: all 0.2s ease;
+}
+
+.status-indicator-bar.pass {
+    background-color: rgba(16, 185, 129, 0.15);
+    border-color: var(--color-green);
+    color: var(--color-green);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+.status-indicator-bar.fail {
+    background-color: rgba(244, 63, 94, 0.15);
+    border-color: var(--color-red);
+    color: var(--color-red);
+    box-shadow: 0 0 10px rgba(244, 63, 94, 0.1);
+}
+
+/* Gauge scale and bar */
+.gauge-container {
+    padding: 10px 0;
+}
+
+.gauge-scale {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
+.gauge-track-wrapper {
+    height: 36px;
+    background-color: rgba(9, 13, 22, 0.8);
+    border-radius: 18px;
+    border: 1px solid var(--border-color);
+    padding: 3px;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.gauge-track {
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+    background-color: rgba(30, 41, 59, 0.2);
+    position: relative;
+    overflow: visible;
+}
+
+.gauge-bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0%;  /* Dynamic */
+    right: 100%; /* Dynamic */
+    border-radius: 14px;
+    background: linear-gradient(to right, rgba(16, 185, 129, 0.25), rgba(16, 185, 129, 0.6));
+    border: 1.5px solid var(--color-green);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gauge-marker {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 4px;
+    border-radius: 2px;
+}
+
+.gauge-marker.nominal {
+    background-color: var(--text-primary);
+    box-shadow: 0 0 8px #ffffff;
+    z-index: 10;
+    transition: left 0.3s ease;
+}
+
+.gauge-marker.nominal::after {
+    content: "Nominal";
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    background-color: var(--bg-primary);
+    padding: 1px 4px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.gauge-marker.measured {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gauge-marker.measured.pass {
+    background-color: var(--color-green);
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 10px var(--color-green);
+}
+
+.gauge-marker.measured.fail {
+    background-color: var(--color-red);
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 10px var(--color-red);
+}
+
+/* Legends */
+.gauge-legends {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-box {
+    width: 16px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+.legend-box.lsl-box {
+    background-color: rgba(16, 185, 129, 0.3);
+    border: 1px solid var(--color-green);
+}
+
+.legend-box.nominal-box {
+    background-color: #ffffff;
+    width: 4px;
+    height: 12px;
+}
+
+.legend-box.measured-box {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--accent-blue);
+    border: 1.5px solid #ffffff;
+}
+
+/* Info Card */
+.info-card {
+    padding: 24px 28px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+@media (max-width: 768px) {
+    .info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-value {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Applied notes */
+.applied-notes-container {
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+}
+
+.notes-header {
+    font-size: 0.85rem;
+    color: var(--accent-blue);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.notes-list {
+    list-style: none;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.notes-list li {
+    margin-bottom: 6px;
+    position: relative;
+    padding-left: 16px;
+}
+
+.notes-list li::before {
+    content: "•";
+    position: absolute;
+    left: 4px;
+    color: var(--accent-blue);
+    font-weight: bold;
+}

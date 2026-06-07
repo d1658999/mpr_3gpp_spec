@@ -1,0 +1,38 @@
+schema: spec-driven
+
+context: |
+    This is dedicated for 3GPP 38521-1 and 36521-1 SEPC analysis.
+    Especially focus on Power USL(upper limit) and LSL(lower limit) including tolerance, so need to have exact value for USL and LSL.
+    README.md and GUIDE.md are mandatory to understand the project context and rules. Read them carefully. 
+    
+rules:
+    proposals:
+        - Use html to present the table and demonstrate the result clearly.
+        - Must refer to the NOTE in the spec and add it the value, let audience know the final value for USL and LSL.
+        - If the spec has multiple tables, use separate tables to present the result.
+        - Must refer to modulation/RB allocation/bands to find the value excluding Multi-Cluster and CA.
+        - Must include NOTE1, NOTE2, NOTE3 like those notes in the spec to let the audience know the condition for the spec value.
+        - Must make the table clear and easy to understand.
+        
+    data:
+        - You can use any tools or methods to extract the context from pdf file such as OCR or md transformation.
+
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+# Add your tech stack, conventions, style guides, domain knowledge, etc.
+# Example:
+#   context: |
+#     Tech stack: TypeScript, React, Node.js
+#     We use conventional commits
+#     Domain: e-commerce platform
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
