@@ -13,6 +13,7 @@ rules:
         - Must refer to modulation/RB allocation/bands to find the value excluding Multi-Cluster and CA.
         - Must include NOTE1, NOTE2, NOTE3 like those notes in the spec to let the audience know the condition for the spec value.
         - Must make the table clear and easy to understand.
+        - Must present what version of spec used to extract the value from pdf
         
     data:
         - You can use any tools or methods to extract the context from pdf file such as OCR or md transformation.

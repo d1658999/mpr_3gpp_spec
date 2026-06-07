@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3GPP E-UTRA (LTE) MPR Limits Calculator</title>
+    <title>3GPP Transmitter MPR Limits Calculator (LTE & 5G NR)</title>
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,8 +13,8 @@
 <body>
     <div class="app-container">
         <header class="app-header">
-            <h1>3GPP E-UTRA (LTE) MPR Limits Calculator</h1>
-            <p class="subtitle">Conformance Test USL / LSL Reference Tool (TS 36.521-1)</p>
+            <h1>3GPP Transmitter MPR Limits Calculator</h1>
+            <p class="subtitle">Conformance Test USL / LSL Reference Tool (TS 36.521-1 & TS 38.521-1)</p>
         </header>
 
         <div class="main-layout">
@@ -23,35 +23,93 @@
                 <h2 class="card-title">Configuration</h2>
                 
                 <div class="form-group">
-                    <label for="mode-select">Verification Mode</label>
-                    <select id="mode-select">
-                        <option value="mpr" selected>Max Output Power (Clause 6.2.3)</option>
-                        <option value="pcmax">Configured Power (Clause 6.2.5 - Note 2)</option>
+                    <label for="tech-select">Radio Access Technology</label>
+                    <select id="tech-select">
+                        <option value="lte" selected>E-UTRA (4G LTE) - TS 36.521-1</option>
+                        <option value="nr">5G NR FR1 - TS 38.521-1</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="band-select">E-UTRA Operating Band</label>
+                    <label for="mode-select">Verification Mode</label>
+                    <select id="mode-select">
+                        <option value="mpr" selected>Max Output Power (Clause 6.2.3 / 6.2.2)</option>
+                        <option value="pcmax">Configured Power (Clause 6.2.5 / 6.2.4)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="pc-group" style="display: none;">
+                    <label for="pc-select">UE Power Class</label>
+                    <select id="pc-select">
+                        <option value="3" selected>Power Class 3 (23 dBm)</option>
+                        <option value="2">Power Class 2 (26 dBm)</option>
+                        <option value="1">Power Class 1 (31 dBm)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="band-select" id="band-select-label">E-UTRA Operating Band</label>
                     <select id="band-select">
                         <option value="" disabled selected>Select operating band...</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="waveform-group" style="display: none;">
+                    <label for="waveform-select">Waveform Type</label>
+                    <select id="waveform-select">
+                        <option value="dft-s-ofdm" selected>DFT-s-OFDM</option>
+                        <option value="cp-ofdm">CP-OFDM</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="scs-group" style="display: none;">
+                    <label for="scs-select">Subcarrier Spacing (SCS)</label>
+                    <select id="scs-select">
+                        <option value="15">15 kHz</option>
+                        <option value="30" selected>30 kHz</option>
+                        <option value="60">60 kHz</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="bw-group" style="display: none;">
+                    <label for="bw-select">Channel Bandwidth</label>
+                    <select id="bw-select">
+                        <option value="3">3 MHz</option>
+                        <option value="5">5 MHz</option>
+                        <option value="10">10 MHz</option>
+                        <option value="15">15 MHz</option>
+                        <option value="20" selected>20 MHz</option>
+                        <option value="25">25 MHz</option>
+                        <option value="30">30 MHz</option>
+                        <option value="40">40 MHz</option>
+                        <option value="50">50 MHz</option>
+                        <option value="60">60 MHz</option>
+                        <option value="70">70 MHz</option>
+                        <option value="80">80 MHz</option>
+                        <option value="90">90 MHz</option>
+                        <option value="100">100 MHz</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="modulation-select">Modulation Scheme</label>
                     <select id="modulation-select">
-                        <option value="qpsk">QPSK</option>
-                        <option value="16qam">16QAM</option>
-                        <option value="64qam">64QAM</option>
-                        <option value="256qam">256QAM</option>
+                        <!-- Options populated dynamically -->
                     </select>
                 </div>
 
                 <div class="form-group" id="rb-alloc-group">
                     <label for="alloc-select">RB Allocation Type</label>
                     <select id="alloc-select">
-                        <option value="partial">Partial RB (Inner Allocation)</option>
-                        <option value="full">Full RB (Outer Allocation)</option>
+                        <!-- Options populated dynamically -->
+                    </select>
+                </div>
+
+                <div class="form-group" id="edge-size-group" style="display: none;">
+                    <label for="edge-size-select">Edge Size (L<sub>CRB</sub>)</label>
+                    <select id="edge-size-select">
+                        <option value="1" selected>1 RB</option>
+                        <option value="2">2 RBs</option>
                     </select>
                 </div>
 
@@ -61,14 +119,14 @@
                         <label class="checkbox-label">
                             <input type="checkbox" id="note1-checkbox">
                             <span class="custom-checkbox"></span>
-                            <span class="checkbox-text">Note 1 (Band-Edge Relaxation, -1.5 dB LSL)</span>
+                            <span class="checkbox-text" id="note1-text">Note 1 (Band-Edge Relaxation, -1.5 dB LSL)</span>
                             <span class="note-status-badge" id="note1-status">N/A</span>
                         </label>
                         
                         <label class="checkbox-label" id="note3-container" style="display: none;">
                             <input type="checkbox" id="note3-checkbox">
                             <span class="custom-checkbox"></span>
-                            <span class="checkbox-text">Note 3 (B18/B26, -1.5 dB LSL)</span>
+                            <span class="checkbox-text" id="note3-text">Note 3 (B18/B26, -1.5 dB LSL)</span>
                             <span class="note-status-badge" id="note3-status">N/A</span>
                         </label>
                     </div>
@@ -78,7 +136,7 @@
 
                 <div class="form-group">
                     <label for="measured-power">Verify Measured Output Power (dBm)</label>
-                    <input type="number" id="measured-power" step="0.1" placeholder="e.g., 21.5" min="0" max="30">
+                    <input type="number" id="measured-power" step="0.1" placeholder="e.g., 21.5" min="0" max="35">
                     <small class="help-text">Optional: Enter your TX power to see visual Pass/Fail margin.</small>
                 </div>
             </section>
@@ -133,6 +191,7 @@
                             <span>23 dBm</span>
                             <span>26 dBm</span>
                             <span>30 dBm</span>
+                            <span>35 dBm</span>
                         </div>
 
                         <!-- Gauge Track -->
@@ -147,7 +206,7 @@
                         <!-- Gauge Legends -->
                         <div class="gauge-legends">
                             <div class="legend-item"><span class="legend-box lsl-box"></span> Pass Range (LSL to USL)</div>
-                            <div class="legend-item"><span class="legend-box nominal-box"></span> Nominal Power (23.0 dBm)</div>
+                            <div class="legend-item"><span class="legend-box nominal-box"></span> Nominal Power</div>
                             <div class="legend-item" id="legend-measured-item" style="display: none;"><span class="legend-box measured-box"></span> Measured Power</div>
                         </div>
                     </div>
@@ -174,7 +233,7 @@
                             <span class="info-value" id="info-tt">--</span>
                         </div>
                         <div class="info-item" id="info-pcmax-tol-item" style="display: none;">
-                            <span class="info-label">Note 2 PCMAX Tolerance</span>
+                            <span class="info-label">Note 2 Config Tolerance</span>
                             <span class="info-value" id="info-pcmax-tol">--</span>
                         </div>
                     </div>
@@ -191,6 +250,7 @@
 
     <!-- Scripts -->
     <script src="mpr_limits_data.js"></script>
+    <script src="mpr_limits_5g_data.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
